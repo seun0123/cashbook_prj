@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 가계부 만들기</title>
+</head>
+<body>
+    <h2>Read</h2>
+    <form method="POST">
+        {% for cashbooks in cashbooks.all %}
+        <h4>제목 :<a href="{% url 'detail' cashbooks.id %}">{{cashbooks.title}}</a></h4>
+        <p>작성일 : {{cashbooks.pub_date}}</p>
+        <p>기분 : {{cashbooks.feeling}}</p>
+        {% endfor %}
+    </form>
+</body>
+</html>
