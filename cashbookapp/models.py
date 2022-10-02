@@ -20,3 +20,10 @@ class Cashbook(models.Model):
         if title == "":
             raise ValidationError("글을 작성해주세요")
         return super(Cashbook,self).clean()
+
+    def clean_feeling(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            return instance.feeling
+        else:
+            return self.cleaned_data['feeling']
