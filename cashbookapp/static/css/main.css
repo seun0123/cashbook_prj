@@ -1,8 +1,38 @@
+:root {
+    --default: linear-gradient(
+        #fdffda,
+        #fdffda
+        );
+
+    --colorful: linear-gradient(
+        50deg,
+        #845ec2,
+        #d65db1,
+        #ff6f91,
+        #ff9671,
+        #ffc75f,
+        #f9f871
+    );
+}
+
 @font-face {
     font-family: 'MonoplexKR-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_Monoplex-kr@1.0/MonoplexKR-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
+}
+
+@keyframes changeColors {
+    from { background: rgb(187, 236, 255); } to { background: rgb(255, 186, 232); }
+} 
+
+@keyframes PastelRainbow {
+    0% {background-position: left;}
+    100% {background-position: right;}
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
@@ -13,49 +43,136 @@ html, body {
     margin: 0;
 }
 
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: blue;
+    text-decoration: none;
+}
+
+.body {
+    background-size: 400%;
+    background-image: var(--default);
+    animation: PastelRainbow 4s infinite alternate;
+}
+
 .header {
     animation: rgy 5s ease-in 1s infinite alternate forwards running;
     height: 8rem;
     font-size: 3rem;
     text-align: center;
     line-height: 7.5rem;
-    animation-name: changeColors;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate; 
+    animation: changeColors 2s linear 0s infinite alternate;
 }
 
-@keyframes changeColors {
-    from { background: rgb(187, 236, 255); } to { background: rgb(255, 186, 232); }
-    } 
-
-.container {
+.container:not(.content) {
     display: flex;
     flex-flow: row nowrap;
+    height: 100rem;
 }
 
 .content {
+    position: relative;
     width: 100%;
-    height: 100rem;
-    background: #fdffda;
+    min-width: 100rem;
+    height: 100rem !important;
+    min-height: 80rem;
+    overflow: hidden;
+}
+
+.slider-container {
+    position: absolute;
+    width: 100%;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    padding: 0 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    overflow: hidden;
+}
+
+.simple-list {
+    list-style-type: none;
+    margin: 0;
+    padding-top: 35rem;
+}
+
+#prev, #next {
+    position: absolute;
+    left: 50%;
+    transform: translateY(280%);
+    z-index: 999999;
+    display: inline-block;
+    height: 5em;
+    width: 5em;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+}
+
+#prev.disabled, #next.disabled { display: none; }
+
+#prev { background-image: url('arrow-left-out.svg'); margin-left: -480px;}
+
+#prev:hover { background-image: url('arrow-left-over.svg'); }
+
+#next {
+    margin-left: 380px;
+    background-image: url('arrow-right-out.svg');
+}
+
+#next:hover { background-image: url('arrow-right-over.svg'); }
+
+.slide-bg, .slide-bg::after {
+    transition: all 0.3s;
+}
+
+.slide-bg {
+    width: 30rem;
+    height: 20rem;
+}
+
+.slide-bg:hover {
+    filter: brightness(30%);
+    cursor: pointer;
+}
+
+.slide-bg:hover ~ .slide-text {
+    transition-delay: 0.15s;
+    filter: opacity(70%);
+}
+
+.slide-text {
+    position: absolute;
+    left: 40.8%;
+    top: 15%;
+    filter: opacity(0%);
+    color: white;
+    font-size: 600%;
+    pointer-events: none;
 }
 
 .sidebar {
-    width: 18rem;
-    height: 25rem;
+    width: 12%;
+    min-width: 12%;
+    height: 16rem;
     position: sticky;
     display: block;
     top: 0;
     background: #ff9b7a;
     text-align: center;
+    padding-top: 3rem;
 }
 
 .sidebar a {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 550%);
+    line-height: 3.5rem;
+    vertical-align: middle;
 }
 
 .logo {
@@ -65,8 +182,9 @@ html, body {
 
 .footer {
     background: #333;
-    height: 12rem;
+    height: 15rem;
     font-size: 1rem;
+    padding-top: 2rem;
     color: white;
     text-align: center;
 }
@@ -75,14 +193,4 @@ html, body {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 20%);
-}
-
-a {
-    color: black;
-    text-decoration: none;
-}
-
-a:hover {
-    color: blue;
-    text-decoration: none;
 }
