@@ -1,0 +1,16 @@
+<button><a href="{% url 'main' %}">메인페이지</a></button>
+<form method="GET" action="{% url 'mypage' user.id %}">
+    <h1>내 정보</h1>
+    {% if user.is_active %}
+    <p>환영합니다. <b>{{user.username}}</b>님 환영합니다.</p>
+        <p>이름 : {{ user.username }}</p>
+        <p>나이 : {{ user.age }}</p>
+        <p>전화번호 : {{ user.phone }}</p>
+        <p><img src="{{ account.image.url }} user.id" width="250" height="250" alt="image"></p>
+        <button><a href="{% url 'logout' %}">로그아웃</a></button>
+        <button><a href="{% url 'update' %}">회원정보수정</a></button>
+    {% else %}
+    <button><a href="{% url 'login' %}">로그인</a></button>
+    <button><a href="{% url 'signup' %}">회원가입</a></button>
+    {% endif %}
+</form>

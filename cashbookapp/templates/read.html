@@ -8,6 +8,11 @@
 </head>
 <body>
     <h2>Read</h2>
+    <button><a href="{% url 'main' %}">메인페이지</a></button>
+    <button><a href="{% url 'write' %}">글 작성</a></button>
+    {% if msg %} 
+        <p style="color: red;">{{msg}}</p>
+    {% endif %}
     <form method="POST">
         {% for cashbooks in cashbooks.all %}
         <h4>제목 :<a href="{% url 'detail' cashbooks.id %}">{{cashbooks.title}}</a></h4>

@@ -1,0 +1,7 @@
+<button><a href="{% url 'main' %}">메인페이지</a></button>
+<h1>회원가입</h1>
+<form method="POST" action="{% url 'signup' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">완료</button>
+</form>
