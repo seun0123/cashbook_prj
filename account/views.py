@@ -24,9 +24,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth.login(request, user)
-            return redirect('login')
-        else:
-            return render(request, 'signup.html',{'form':form})
+            return redirect('mypage', user.id)
     else:
         form = CustomUserCreationForm()
         return render(request, 'signup.html', {'form':form})
@@ -37,7 +35,7 @@ def login(request):
         if form.is_valid():
             user = form.get_user()
             auth.login(request, user)
-            return redirect('write')
+            return redirect('mypage', user.id)
         else:
             return render(request, 'login.html', {'form':form})
     else:
@@ -50,7 +48,7 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-    return redirect('mypage')
+    return redirect('main')
 
 def mypage(request, id):
     user = request.user
