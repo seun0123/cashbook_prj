@@ -3,4 +3,6 @@
 <form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
+    <button type="submit">수정하기</button>
+    <button ><a href="{% url 'user_update_password' %}">비밀번호변경하기</a></button>
 </form>

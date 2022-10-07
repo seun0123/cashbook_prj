@@ -8,7 +8,7 @@
         <p>전화번호 : {{ user.phone }}</p>
         <p><img src="{{ account.image.url }} user.id" width="250" height="250" alt="image"></p>
         <button><a href="{% url 'logout' %}">로그아웃</a></button>
-        <button><a href="{% url 'update' %}">회원정보수정</a></button>
+        <button><a href="{% url 'user_update' %}">회원정보수정</a></button>
     {% else %}
     <button><a href="{% url 'login' %}">로그인</a></button>
     <button><a href="{% url 'signup' %}">회원가입</a></button>

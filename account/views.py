@@ -3,7 +3,7 @@ from multiprocessing import context
 from multiprocessing.reduction import duplicate
 from nntplib import NNTPPermanentError
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from .forms import CustomUserChangeForm, User
@@ -23,14 +23,13 @@ def signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            auth_login(request, user)
-            return redirect('mypage')
+            auth.login(request, user)
+            return redirect('login')
+        else:
+            return render(request, 'signup.html',{'form':form})
     else:
         form = CustomUserCreationForm()
-        context = {
-            'form':form,
-        }
-        return render(request, 'signup.html', context)
+        return render(request, 'signup.html', {'form':form})
 
 def login(request):
     if request.method == 'POST':
@@ -38,7 +37,7 @@ def login(request):
         if form.is_valid():
             user = form.get_user()
             auth.login(request, user)
-            return redirect('mypage')
+            return redirect('write')
         else:
             return render(request, 'login.html', {'form':form})
     else:
@@ -54,18 +53,12 @@ def logout(request):
     return redirect('mypage')
 
 def mypage(request, id):
-    user = get_user_model()
+    user = request.user
     user_id = str(user.id)
-    if (user.is_active == True) and (user_id == id) :
+    if (user.is_authenticated == True) and (user_id == id) :
         user = User.objects.get(id=id)
-        post = write.objects.filter(author=user)
-        # user.username = request.GET['username']
-        # user.image = request.FILES['image']
-        # user.age = request.GET['age']
-        # user.phone = request.GET['phone']
         context = {
             'user':user,
-            'post':post,
         }
         return render(request, 'mypage.html', context)
     else:
@@ -83,7 +76,7 @@ def user_update(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('non_login_index')
+            return redirect('main')
     else : 
         form = CustomUserChangeForm(instance=request.user)
     context = {
@@ -97,7 +90,10 @@ def user_update_password(request):
         if form.is_valid():
             user = form.save() # 로그아웃됨. session정보랑 로그인정보까지 날아감.
             update_session_auth_hash(request, user)
-            return redirect('non_login_index')
+            messages.success(request, '성공적으로 비밀번호를 변경되었습니다.')
+            return redirect('mypage')
+        else:
+            messages.error(request, '비밀번호가 변경되지 않았습니다.')
     else:
         form = PasswordChangeForm(request.user)
     context = {

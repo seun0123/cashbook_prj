@@ -18,9 +18,9 @@ def main(request):
 
 @login_required
 def write(request):
-    user = get_user_model()
+    user = request.user
     user_id = str(user.id)
-    if (user.is_active == True) and (user_id == id): # user.id 는 진짜 id이고 html에서 받아온 id는 생긴건 id지만 str이라서 str(user.id)==id로 해줘야 함.
+    if (user.is_authenticated == True) and (user_id == id): # user.id 는 진짜 id이고 html에서 받아온 id는 생긴건 id지만 str이라서 str(user.id)==id로 해줘야 함.
         if form.is_valid():
             form = form.save(commit=False)
             form.pub_date = timezone.now()

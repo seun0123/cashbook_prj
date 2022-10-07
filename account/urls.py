@@ -27,5 +27,5 @@ urlpatterns = [
     path('mypage/<str:id>',account.views.mypage, name='mypage'),
     path('logout/', account.views.logout, name='logout'),
     path('user_update/', account.views.user_update, name='user_update'),
-    path('password/',account.views.user_update_password, name='user_update_password'),
+    path('user_update_password/',account.views.user_update_password, name='user_update_password'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
