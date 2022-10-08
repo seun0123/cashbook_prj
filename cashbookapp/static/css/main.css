@@ -29,7 +29,12 @@ html, body {
 
 @keyframes changeColors {
     from { background: rgb(187, 236, 255); } to { background: rgb(255, 186, 232); }
-    } 
+    }
+
+.title {
+    position: absolute;
+    text-align: center;
+}
 
 .container {
     display: flex;

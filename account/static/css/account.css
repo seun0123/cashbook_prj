@@ -1,0 +1,24 @@
+.hide {
+    display: none;
+}
+
+.failure-message,
+.pwlimit-message,
+.mismatch-message,
+.misnumber-message,
+.misage-message,
+.misaddress-message {
+    color: red;
+}
+
+.success-message,
+.pwallow-message,
+.match-message,
+.number-message {
+    color: blue;
+}
+
+.style0,
+.style1 {
+    color: gray;
+}
