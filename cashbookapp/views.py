@@ -16,24 +16,24 @@ from django.contrib.auth import get_user_model
 def main(request):
     return render(request, 'main.html')
 
-@login_required
 def write(request):
-    user = request.user
-    user_id = str(user.id)
-    if (user.is_authenticated == True) and (user_id == id): # user.id 는 진짜 id이고 html에서 받아온 id는 생긴건 id지만 str이라서 str(user.id)==id로 해줘야 함.
+    context = {}
+    if request.method == 'POST':
+        form = CashbookForm(request.POST, request.FILES)
         if form.is_valid():
             form = form.save(commit=False)
-            form.pub_date = timezone.now()
+            form.created_at = timezone.now()
             form.save()
-            return render(request, 'write.html')
+            return redirect('read')
+        
+        else:
+            context = {
+                'form':form,
+            }
+            return render(request, 'write.html', context)
     else:
-        msg = " 글작성 페이지는 로그인 후 접근 가능합니다."
-        form = AuthenticationForm()
-        context = {
-            'msg':msg,
-            'form':form
-        }
-    return render(request, 'login.html', context)
+        form = CashbookForm
+        return render(request, 'write.html', {'form': form})
 
 def read(request):
     cashbooks = Cashbook.objects
