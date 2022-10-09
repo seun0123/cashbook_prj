@@ -3,38 +3,60 @@
 <!DOCTYPE html>
 <html lang="ko">
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-    <title>메인페이지</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <title>메인페이지</title>
+    </head>
 
-<body>
-    <div class="header" id="header">메인페이지</div>
-    <div class="container">
-        <div class="content" id="content">
-            <button onclick="location.href='write/'">가계부 작성</button >
-            <button onclick="location.href='read/'">가계부 리스트</button >
-            <button onclick="location.href='account/login'">로그인</button >
-            <button onclick="location.href='account/signup'">회원가입</button >
-            <button><a href="{% url 'mypage' user.id %}">내 정보</a></button >
+    <body class="body">
+        <div class="header" id="header">
+            메인페이지
+            <button onclick="location.href='account/login'">로그인</button>
+            <button onclick="location.href='account/signup'">회원가입</button>
         </div>
+        <div class="container" id="container">
+            <div class="content">
+                <ul class="slider-container simple-list" id="slider">
+                    <li class="slide">
+                        <img class="slide-bg" src="{% static 'img/1.jpg' %}" onclick="location.href='read/'">
+                        <div class="slide-text">가계부<br>리스트</div>
+                    </li>
+                    <li class="slide">
+                        <img class="slide-bg" src="{% static 'img/2.jpg' %}" onclick="location.href='write/'">
+                        <div class="slide-text">가계부<br>작성</div>
+                    </li>
+                    <li class="slide">
+                        <img class="slide-bg" src="{% static 'img/3.jpg' %}" onclick="location.href=`{% url 'mypage' user.id %}`">
+                        <div class="slide-text">내정보<br>페이지</div>
+                    </li>
+                    <li class="slide">
+                        <img class="slide-bg" id="bodyBG" src="{% static 'img/4.jpg' %}">
+                        <div class="slide-text">배경색<br>바꾸기</div>
+                    </li>
+                </ul>
+        
+                <a href="#" id="prev" class="disabled"></a>
+                <a href="#" id="next"></a>
+            </div>
             <div class="sidebar">
                 <a href="#header">맨 위로</a><br>
-                <a href="#content">메인 컨텐츠</a><br>
+                <a href="#container">메인 컨텐츠</a><br>
                 <a href="#footer">맨 아래로</a>
             </div>
-    </div>
-    <div class="likelion.logo">
-        <img class="logo" src="{% static 'img/logo.jpg' %}">
-    </div>
-    <div class="footer" id="footer">
-        <p>Copyright&copy; 성공회대학교 멋쟁이사자처럼 10기<br>
-        아기사자 경명규, 박세은<br><br>
-            
-        문제 발생시 아래 번호로 연락 부탁드립니다<br>
-        경명규 : 010-2667-9207<br>
-        박세은 : 010-3034-5474</p>
-    </div>
-</body>
+        </div>
+        <div class="likelion.logo">
+            <img class="logo" src="{% static 'img/logo.jpg' %}">
+        </div>
+        <div class="footer" id="footer">
+            <span><b>"대충 있어보이는 명언"</b> - <i>아무개</i></span>
+            <p>Copyright&copy; 성공회대학교 멋쟁이사자처럼 10기<br>
+            아기사자 경명규, 박세은<br><br>
+                
+            문제 발생시 아래 번호로 연락 부탁드립니다<br>
+            경명규 : 010-2667-9207<br>
+            박세은 : 010-3034-5474</p>
+        </div>
+    </body>
+<script src="{% static 'js/main.js' %}"></script>
 </html>
