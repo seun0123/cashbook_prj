@@ -1,5 +1,61 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pretendard-Regular';
+    background: rgb(236, 251, 255);
+    font-size: 1.2rem;
+}
+
+button, button::after {
+    transition: all 0.3s;
+}
+
+button {
+  background: #cea3ff;
+  border: 3px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  display: block;
+  font-size: 1em;
+  font-weight: bold;
+  margin: 1em auto;
+  padding: 1em 3em;
+  position: relative;
+  text-transform: uppercase;
+}
+
+button:hover {
+  color: #cea3ff;
+  background: #fff;
+  border-color: #cea3ff;
+}
+
+input:focus {
+    outline: none;
+    background: rgb(242, 255, 242);
+}
+
 .hide {
     display: none;
+}
+
+.account-box {
+    margin: auto;
+    background-color: rgb(226, 226, 226);
+    border: 1px solid black;
+    border-radius: 1em;
+    height: 80vh;
+    width: 40rem;
+    padding: 1rem 1rem 1rem 1rem;
 }
 
 .failure-message,
@@ -18,7 +74,6 @@
     color: blue;
 }
 
-.style0,
-.style1 {
-    color: gray;
+.condition {
+    color: rgb(73, 73, 73);
 }

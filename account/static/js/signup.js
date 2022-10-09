@@ -139,7 +139,7 @@ elAgetype.onkeyup = function () {
 }
 
 elAddresstype.onkeyup = function () {
-    if (isAddressmatch(elAddresstype.value)) {
+    if (isAddressmatch(elAddresstype.value) || elAddresstype == "") {
         elMisaddressmessage.classList.add('hide')
         addressCheck = 1
     }
