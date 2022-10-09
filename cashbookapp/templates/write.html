@@ -14,10 +14,16 @@
     {% endif %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        {% if user.is_active %}
         <table>
             {{form.as_table}}
         </table>
-        <button type = "submit">작성</button>
+        <br>
+        <button type="submit">작성</button>
+        {% else %}
+        <a href="{% url 'login' %}">[새 글을 작성하려면 로그인하세요.]</a>
+        {% endif %}
+    </form>
     </form>
 </body>
 </html>

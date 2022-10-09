@@ -20,30 +20,30 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, User
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
+            image = request.user.image
             auth.login(request, user)
-            return redirect('mypage', user.id)
+            return redirect(login)
+        else:
+            return render(request, 'signup.html', {'form':form,'image':image})
     else:
         form = CustomUserCreationForm()
         return render(request, 'signup.html', {'form':form})
 
 def login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+    if request.method =='POST':
+        form = AuthenticationForm(data= request.POST)
         if form.is_valid():
             user = form.get_user()
             auth.login(request, user)
-            return redirect('mypage', user.id)
+            return redirect('mypage',user.id)
         else:
-            return render(request, 'login.html', {'form':form})
+            return render(request, 'mypage.html', {'form':form})
     else:
         form = AuthenticationForm()
-        context = {
-            'form':form,
-        }
-        return render(request, 'login.html', context)
+        return render(request, 'login.html', {'form':form})
     
 
 def logout(request):
@@ -55,8 +55,11 @@ def mypage(request, id):
     user_id = str(user.id)
     if (user.is_authenticated == True) and (user_id == id) :
         user = User.objects.get(id=id)
+        image = request.user.image
         context = {
             'user':user,
+            'user_id':user_id,
+            'image':image,
         }
         return render(request, 'mypage.html', context)
     else:
@@ -71,14 +74,17 @@ def mypage(request, id):
 @login_required
 def user_update(request):
     if request.method == "POST":
-        form = CustomUserChangeForm(request.POST, instance=request.user)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('main')
+            image = request.user.image
+            return redirect('main',{'image':image})
     else : 
         form = CustomUserChangeForm(instance=request.user)
+        image = request.user.image
     context = {
         'form':form,
+        'image':image
     }
     return render(request, 'user_update.html', context)
 
@@ -88,10 +94,7 @@ def user_update_password(request):
         if form.is_valid():
             user = form.save() # 로그아웃됨. session정보랑 로그인정보까지 날아감.
             update_session_auth_hash(request, user)
-            messages.success(request, '성공적으로 비밀번호를 변경되었습니다.')
-            return redirect('mypage')
-        else:
-            messages.error(request, '비밀번호가 변경되지 않았습니다.')
+            return redirect('login')
     else:
         form = PasswordChangeForm(request.user)
     context = {
