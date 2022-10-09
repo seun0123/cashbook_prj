@@ -3,9 +3,11 @@ from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.core.exceptions import ValidationError
 from datetime import datetime
+from django.conf import settings
 
 # Create your models here.
 class Cashbook(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     pub_date = models.DateTimeField('data published', default=datetime.now, editable=False)
     content = models.TextField()

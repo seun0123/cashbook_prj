@@ -8,7 +8,8 @@
 </head>
 <body>
     <div class="col-lg-10">
-        <h2>Detail</h2><hr><br><br>
+        <h2>Detail</h2><hr><br>
+        <button><a href="{% url 'read' %}">가계부 리스트</a></button>
         <h3>제목 : {{cashbooks.title}}</h3>
         <p>작성일 : {{cashbooks.pub_date}}</p>
         <p>기분 : {{cashbooks.feeling}}</p>
@@ -17,8 +18,10 @@
             <img src="{{ cashbooks.image.url }}" width="250" height="250" alt="image">
         {% endif %}
         <br>
-        <a href="{% url 'edit' cashbooks.id %}">수정하기</a>
-        <a href="{% url 'delete' cashbooks.id %}">삭제하기</a>
+        {% if cashbooks.user == request.user %}
+            <a href="{% url 'edit' cashbooks.id %}">수정하기</a>
+            <a href="{% url 'delete' cashbooks.id %}">삭제하기</a>
+        {% endif %}
     </div>
 </body>
 </html>

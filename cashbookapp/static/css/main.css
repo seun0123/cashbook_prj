@@ -16,9 +16,16 @@
 }
 
 @font-face {
-    font-family: 'MonoplexKR-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_Monoplex-kr@1.0/MonoplexKR-Regular.woff2') format('woff2');
-    font-weight: 400;
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KOTRAHOPE';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
 }
 
@@ -36,11 +43,34 @@
 }
 
 body {
-    font-family: 'MonoplexKR-Regular';
+    font-family: 'GmarketSansMedium';
 }
 
 html, body {
     margin: 0;
+}
+
+button, button::after {
+    transition: all 0.3s;
+}
+
+button {
+  background: #cea3ff;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 0.5em;
+  font-weight: bold;
+  margin: 0.1em auto;
+  padding: 0.1em 0.1em;
+  float: right;
+  text-transform: uppercase;
+}
+
+button:hover {
+  color: #cea3ff;
+  background: #fff;
+  border-color: #cea3ff;
 }
 
 a {
@@ -71,15 +101,13 @@ a:hover {
 .container:not(.content) {
     display: flex;
     flex-flow: row nowrap;
-    height: 100rem;
+    height: 80rem;
 }
 
 .content {
     position: relative;
     width: 100%;
-    min-width: 100rem;
-    height: 100rem !important;
-    min-height: 80rem;
+    height: 60rem !important;
     overflow: hidden;
 }
 
@@ -92,8 +120,7 @@ a:hover {
     position: absolute;
     width: 100%;
     padding: 0 10%;
-    top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-80%);
     text-align: center;
     overflow: hidden;
 }
@@ -149,13 +176,12 @@ a:hover {
 }
 
 .slide-text {
-    position: absolute;
-    left: 40.8%;
-    top: 15%;
+    font-family: 'KOTRAHOPE';
     filter: opacity(0%);
     color: white;
     font-size: 600%;
     pointer-events: none;
+    transform: translateY(-125%);
 }
 
 .sidebar {
@@ -165,7 +191,7 @@ a:hover {
     position: sticky;
     display: block;
     top: 0;
-    background: #ff9b7a;
+    background: #c5c5c5;
     text-align: center;
     padding-top: 3rem;
 }
@@ -181,10 +207,11 @@ a:hover {
 }
 
 .footer {
+    margin-top: -0.5rem;
     background: #333;
     height: 15rem;
     font-size: 1rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
     color: white;
     text-align: center;
 }

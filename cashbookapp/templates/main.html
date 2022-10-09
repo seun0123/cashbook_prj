@@ -6,30 +6,33 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-        <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
         <title>메인페이지</title>
     </head>
 
     <body class="body">
-        <div class="header" id="header">메인페이지</div>
+        <div class="header" id="header">
+            메인페이지
+            <button onclick="location.href='account/login'">로그인</button>
+            <button onclick="location.href='account/signup'">회원가입</button>
+        </div>
         <div class="container" id="container">
             <div class="content">
                 <ul class="slider-container simple-list" id="slider">
                     <li class="slide">
                         <img class="slide-bg" src="{% static 'img/1.jpg' %}" onclick="location.href='read/'">
-                        <span class="slide-text">Read<br>페이지</span>
+                        <div class="slide-text">가계부<br>리스트</div>
                     </li>
                     <li class="slide">
                         <img class="slide-bg" src="{% static 'img/2.jpg' %}" onclick="location.href='write/'">
-                        <span class="slide-text">Write<br>페이지</span>
+                        <div class="slide-text">가계부<br>작성</div>
                     </li>
                     <li class="slide">
-                        <img class="slide-bg" src="{% static 'img/3.jpg' %}" onclick="location.href='admin/'">
-                        <span class="slide-text">Admin<br>페이지</span>
+                        <img class="slide-bg" src="{% static 'img/3.jpg' %}" onclick="location.href=`{% url 'mypage' user.id %}`">
+                        <div class="slide-text">내정보<br>페이지</div>
                     </li>
                     <li class="slide">
                         <img class="slide-bg" id="bodyBG" src="{% static 'img/4.jpg' %}">
-                        <span class="slide-text">Change<br>BG</span>
+                        <div class="slide-text">배경색<br>바꾸기</div>
                     </li>
                 </ul>
         

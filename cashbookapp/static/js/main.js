@@ -59,20 +59,18 @@ navNext.addEventListener('click', function(event) {
     goToSlide(currentIndex + 1);
 });
 
-$('#bodyBG').click(function() {
-    changeBG();
-})
+document.querySelector('#bodyBG').addEventListener('click', () => { changeBG(); })
 
 function changeBG() {
     if (number == 0) {
-        $('.body').css('backgroundImage', 'var(--colorful)');
-        setTimeout(() => console.log("after"), 1000);
+        document.querySelector('.body').style.backgroundImage = 'var(--colorful)';
+        setTimeout(() => 1000);
         number = number +1;
     }
 
     else if (number == 1) {
-        $('.body').css('backgroundImage', 'var(--default)');
-        setTimeout(() => console.log("after"), 1000);
+        document.querySelector('.body').style.backgroundImage = 'var(--default)';
+        setTimeout(() => 1000);
         number = number -1;
     }
 }

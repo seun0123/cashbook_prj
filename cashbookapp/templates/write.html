@@ -8,6 +8,10 @@
 </head>
 <body>
     <h2>write</h2>
+    <button><a href="{% url 'main' %}">메인페이지</a></button>
+    {% if msg %} 
+        <p style="color: red;">{{msg}}</p>
+    {% endif %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
