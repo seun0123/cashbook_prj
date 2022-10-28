@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 가계부 만들기</title>
+</head>
+<body>
+    <div class="col-lg-10">
+        <h2>Detail</h2><hr><br>
+        <button><a href="{% url 'read' %}">가계부 리스트</a></button>
+        <h3>제목 : {{cashbooks.title}}</h3>
+        <p>작성일 : {{cashbooks.pub_date}}</p>
+        <p>기분 : {{cashbooks.feeling}}</p>
+        <p>지출내역 : {{cashbooks.content}}</p>
+        {% if cashbooks.image %}
+            <img src="{{ cashbooks.image.url }}" width="250" height="250" alt="image">
+        {% endif %}
+        <br>
+        {% if cashbooks.user == request.user %}
+            <a href="{% url 'edit' cashbooks.id %}">수정하기</a>
+            <a href="{% url 'delete' cashbooks.id %}">삭제하기</a>
+        {% endif %}
+        {% for comment in cashbooks.comments.all %}
+            <p>{{ comment.text }}
+                <a href = "{% url 'update_comment' cashbooks.id comment.id %}">수정</a>
+            </p>
+        {% endfor %}
+        <form method="POST" action="{% url 'detail' cashbooks.id %}">
+            {% csrf_token %}
+            <p>{{form.as_p}}</p>
+            <input type="submit" value="submit">
+        </form>    
+    </div>
+</body>
+</html>
