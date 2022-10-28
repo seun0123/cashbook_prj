@@ -27,4 +27,5 @@ urlpatterns = [
     path('detail/<str:id>', cashbookapp.views.detail, name='detail'),
     path('delete/<str:id>', cashbookapp.views.delete, name='delete'),
     path('update_comment/<str:id>/<str:com_id>/',cashbookapp.views.update_comment, name='update_comment'),
+    path('delete_comment/<str:id>/<str:com_id>/',cashbookapp.views.delete_comment, name='delete_comment'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -48,6 +48,7 @@ def detail(request, id):
         if form.is_valid():
             comment = form.save(commit = False)
             comment.cashbook_id = cashbooks
+            comment.author = request.user
             comment.text = form.cleaned_data['text']
             comment.save()
             id = id
@@ -89,6 +90,15 @@ def update_comment(request, id, com_id):
     if request.method == "POST":
         update_form = CommentForm(request.POST, instance=comment)
         if update_form.is_valid():
+            comment = update_form.save(commit = False)
+            comment.author = request.user
+            comment.post_id = post
+            comment.content = update_form.cleaned_data['text']
             update_form.save()
-            return redirect('deatail', id)
+            return redirect('detail', id)
     return render(request, 'update_comment.html', {'form':form, 'post':post, 'comment':comment})        
+
+def delete_comment(request, id, com_id):
+    comment = get_object_or_404(Comment,id=com_id)
+    comment.delete()
+    return redirect('detail', id)
