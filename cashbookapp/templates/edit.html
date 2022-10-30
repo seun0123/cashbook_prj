@@ -1,22 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     <title>나만의 가계부 만들기</title>
 </head>
 <body>
-    <h2>edit</h2>
-    <form method="POST"  enctype="multipart/form-data">
-        {% csrf_token %}
-        <table>
-            {{form.as_table}}
-        </table>
-        {% if cashbooks.image %}
-            <image src="{{ cashbooks.image.url }}" width="250" height="250" alt="image"></image>
-        {% endif %}
-        <button type = "submit">작성</button>
-    </form>
+    <h1>edit</h1>
+    <div class="container" style="overflow-y: auto; height: 26rem;">
+        <form method="POST"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {{form.as_table}}
+            </table>
+            {% if cashbooks.image %}
+                <image src="{{ cashbooks.image.url }}" width="250" height="250" alt="image"></image>
+            {% endif %}
+            <button type="submit">수정</button>
+        </form>
+    </div>
 </body>
 </html>

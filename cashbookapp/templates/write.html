@@ -1,29 +1,32 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     <title>나만의 가계부 만들기</title>
 </head>
 <body>
-    <h2>write</h2>
-    <button><a href="{% url 'main' %}">메인페이지</a></button>
-    {% if msg %} 
-        <p style="color: red;">{{msg}}</p>
-    {% endif %}
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% if user.is_active %}
-        <table>
-            {{form.as_table}}
-        </table>
-        <br>
-        <button type="submit">작성</button>
-        {% else %}
-        <a href="{% url 'login' %}">[새 글을 작성하려면 로그인하세요.]</a>
+    <h1>write</h1>
+    <div class="container" style="overflow-y: auto; height: 26rem;">
+        <button class="page-btn" onclick="location.href=`{% url 'main' %}`">메인페이지</button><br>
+        {% if msg %} 
+            <p style="color: red;">{{msg}}</p>
         {% endif %}
-    </form>
-    </form>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if user.is_active %}
+            <table>
+                {{form.as_table}}
+            </table>
+            <br>
+            <button type="submit">작성</button>
+            {% else %}
+            <a href="{% url 'login' %}">[새 글을 작성하려면 로그인하세요.]</a>
+            {% endif %}
+        </form>
+    </div>
 </body>
 </html>
