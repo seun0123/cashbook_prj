@@ -1,5 +1,8 @@
 from email import contentmanager
+from email.mime import image
 from http.client import HTTPResponse
+from time import time
+from turtle import title
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CashbookForm, CommentForm
 from django.utils import timezone
@@ -48,6 +51,7 @@ def detail(request, id):
         if form.is_valid():
             comment = form.save(commit = False)
             comment.cashbook_id = cashbooks
+            comment.author = request.user
             comment.text = form.cleaned_data['text']
             comment.save()
             id = id
@@ -59,28 +63,25 @@ def detail(request, id):
 @login_required
 def edit(request, id):
     cashbooks = get_object_or_404(Cashbook, id=id)
-    if request.user == Cashbook.user :
-        if request.method == "POST":
-            form = CashbookForm(request.POST, request.FILES, instance=cashbooks)
-            if form.is_valid():
-                form.save()
-                return redirect('read')
-        else:
-            form = CashbookForm(instance=cashbooks)
-    context = {
-        'form': form,
-        'cashbooks' : cashbooks,
-    }
-    return render(request, 'edit.html', context)
+    if request.method == "POST":
+        form = CashbookForm(request.POST, request.FILES, instance=cashbooks)
+        if form.is_valid():
+            form.save(commit = False)
+            form.update_at = timezone.now()
+            form.save()
+            return redirect('read')
+    else:
+        form = CashbookForm(instance=cashbooks)
+        context = {
+            'form': form,
+            'cashbooks' : cashbooks,
+        }
+        return render(request, 'edit.html', context)
 
-@require_POST
 def delete(request, id):
     cashbooks = get_object_or_404(Cashbook, id=id)
-    if request.user.is_authenticated :
-        if request.user == Cashbook.user:
-            cashbooks.delete()
-            return redirect('non_login_index')
-    return redirect('detail', id)
+    cashbooks.delete()
+    return redirect('read')
 
 def update_comment(request, id, com_id):
     post = get_object_or_404(Cashbook, id=id)
@@ -89,6 +90,15 @@ def update_comment(request, id, com_id):
     if request.method == "POST":
         update_form = CommentForm(request.POST, instance=comment)
         if update_form.is_valid():
+            comment = update_form.save(commit = False)
+            comment.author = request.user
+            comment.post_id = post
+            comment.content = update_form.cleaned_data['text']
             update_form.save()
-            return redirect('deatail', id)
+            return redirect('detail', id)
     return render(request, 'update_comment.html', {'form':form, 'post':post, 'comment':comment})        
+
+def delete_comment(request, id, com_id):
+    comment = get_object_or_404(Comment,id=com_id)
+    comment.delete()
+    return redirect('detail', id)

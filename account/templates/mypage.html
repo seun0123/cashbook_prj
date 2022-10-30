@@ -7,7 +7,7 @@
         <p>나이 : {{ user.age }}</p>
         <p>전화번호 : {{ user.phone }}</p>
         <p>주소 : {{ user.address }}</p>
-        <p>프로필 사진 : <img src="{{ account.image.url }}"></p>
+        <p>프로필 사진 : <img src="{{ account.images.url }}" alt="프로필사진"></p>
         <button><a href="{% url 'logout' %}">로그아웃</a></button>
         <button><a href="{% url 'user_update' %}">회원정보수정</a></button>
     {% else %}

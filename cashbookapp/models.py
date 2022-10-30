@@ -35,4 +35,5 @@ class Comment(models.Model):
         return self.text
 
     cashbook_id = models.ForeignKey(Cashbook, on_delete = models.CASCADE, related_name = 'comments', null = True)
+    author = models.ForeignKey('account.User', on_delete=models.CASCADE, blank = True)
     text = models.CharField(max_length=50)

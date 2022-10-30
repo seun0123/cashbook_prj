@@ -1,0 +1,55 @@
+* { box-sizing: border-box;}
+
+a { text-decoration: none;}
+
+.modal-background {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.15);
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.modal-editpage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(245, 255, 254);
+    width: 23rem;
+    height: 15rem;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.btn-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.btn-submit {
+    background-color: black;
+    color: #fff;
+    border-radius: 1rem;
+    width: 6rem;
+    font-size: 1rem;
+    padding: 0.3rem;
+    display: block;
+    margin: 0.5em auto;
+}
+
+.modal-background.active {
+    display: block;
+}
+
+input[type=text] {
+    width: 15rem;
+    height: 2rem;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}

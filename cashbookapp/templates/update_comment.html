@@ -1,5 +1,23 @@
-<form method="POST" action="{% url 'update_comment' post.id comment.id %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="수정하기">
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <title>나만의 가계부 만들기</title>
+</head>
+<body>
+    <div class="container" style="width: 20rem; height: 12rem;">
+        <h2>댓글 수정하기</h2>
+        <form method="POST" action="{% url 'update_comment' post.id comment.id %}">
+            {% csrf_token %}
+            <p>
+                <input type="text" name="text" value="댓글" maxlength="50" required="" id="id_text">
+            </p>
+            <button type="submit">수정하기</button>
+        </form>
+    </div>
+</body>
+</html>
