@@ -10,6 +10,6 @@ class User(AbstractUser):
     phone = models.CharField(max_length=100, null=True, blank=True)
     address = models.CharField(max_length=100, null=True, blank=True)
     image = models.ImageField(upload_to = 'images/', blank=True)
-    def __str__(self):
-        return self.username
+    # def __str__(self):
+    #     return self.username
 
