@@ -1,5 +1,8 @@
 from email import contentmanager
+from email.mime import image
 from http.client import HTTPResponse
+from time import time
+from turtle import title
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CashbookForm, CommentForm
 from django.utils import timezone
@@ -60,28 +63,25 @@ def detail(request, id):
 @login_required
 def edit(request, id):
     cashbooks = get_object_or_404(Cashbook, id=id)
-    if request.user == Cashbook.user :
-        if request.method == "POST":
-            form = CashbookForm(request.POST, request.FILES, instance=cashbooks)
-            if form.is_valid():
-                form.save()
-                return redirect('read')
-        else:
-            form = CashbookForm(instance=cashbooks)
-    context = {
-        'form': form,
-        'cashbooks' : cashbooks,
-    }
-    return render(request, 'edit.html', context)
+    if request.method == "POST":
+        form = CashbookForm(request.POST, request.FILES, instance=cashbooks)
+        if form.is_valid():
+            form.save(commit = False)
+            form.update_at = timezone.now()
+            form.save()
+            return redirect('read')
+    else:
+        form = CashbookForm(instance=cashbooks)
+        context = {
+            'form': form,
+            'cashbooks' : cashbooks,
+        }
+        return render(request, 'edit.html', context)
 
-@require_POST
 def delete(request, id):
     cashbooks = get_object_or_404(Cashbook, id=id)
-    if request.user.is_authenticated :
-        if request.user == Cashbook.user:
-            cashbooks.delete()
-            return redirect('non_login_index')
-    return redirect('detail', id)
+    cashbooks.delete()
+    return redirect('read')
 
 def update_comment(request, id, com_id):
     post = get_object_or_404(Cashbook, id=id)
