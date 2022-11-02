@@ -23,11 +23,10 @@ def signup(request):
         form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
-            image = request.user.image
             auth.login(request, user)
             return redirect(login)
         else:
-            return render(request, 'mypage.html', {'form':form,'image':image})
+            return render(request, 'mypage.html', {'form':form})
     else:
         form = CustomUserCreationForm()
         return render(request, 'signup.html', {'form':form})
@@ -38,7 +37,7 @@ def login(request):
         if form.is_valid():
             user = form.get_user()
             auth.login(request, user)
-            return redirect('mypage',user.id)
+            return redirect('write')
         else:
             return render(request, 'mypage.html', {'form':form})
     else:
