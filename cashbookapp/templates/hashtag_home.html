@@ -1,0 +1,6 @@
+<h1>Hashtag_Home</h1>
+
+{% for hashtag in hashtags %}
+    <a href = "{% url 'hashtag_detail' hashtag.id hashtag.id %}"># {{hashtag.name}}</a>
+    <br><br>
+{% endfor %}

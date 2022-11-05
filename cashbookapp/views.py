@@ -4,9 +4,9 @@ from http.client import HTTPResponse
 from time import time
 from turtle import title
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CashbookForm, CommentForm
+from .forms import CashbookForm, CommentForm, HashtagForm
 from django.utils import timezone
-from .models import Cashbook, Comment
+from .models import Cashbook, Comment, Hashtag
 from account.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
@@ -20,24 +20,30 @@ from django.http import request
 def main(request):
     return render(request, 'main.html')
 
-def write(request):
-    context = {}
+def write(request, cashbook = None):
     if request.method == 'POST':
-        form = CashbookForm(request.POST, request.FILES)
+        form = CashbookForm(request.POST, request.FILES, instance = cashbook)
         if form.is_valid():
-            form = form.save(commit=False)
-            form.created_at = timezone.now()
-            form.user = request.user
-            form.save()
-            return redirect('read')
-        
+            # user = User.objects.get(id = request.id)
+            user = request.user
+            cashbook = form.save(commit = False)
+            cashbook.pub_date = timezone.now()
+            cashbook.user = request.user
+            cashbook.save()
+            content = request.POST.get('content')
+            content_list = content.split(' ')
+            form.save_m2m()
+            for c in content_list:
+                if '#' in c:
+                    hashtag = Hashtag()
+                    hashtag.hashtag_content = c
+                    cashbook_ = Cashbook.objects.get(id = cashbook.id)
+                    cashbook_.tagging.add(hashtag)
+            return redirect('/')
         else:
-            context = {
-                'form':form,
-            }
-            return render(request, 'write.html', context)
+            return redirect('write', {'user':user})
     else:
-        form = CashbookForm
+        form = CashbookForm(instance = cashbook)
         return render(request, 'write.html', {'form': form})
 
 def read(request):
@@ -102,3 +108,57 @@ def delete_comment(request, id, com_id):
     comment = get_object_or_404(Comment,id=com_id)
     comment.delete()
     return redirect('detail', id)
+
+def hashtag(request, hashtag = None):
+    if request.method == "POST":
+        form = HashtagForm(request.POST, instance = hashtag)
+        if form.is_valid():
+            hashtag = form.save(commit = False)
+            if Hashtag.objects.filter(name = form.cleaned_data['name']):
+                form = HashtagForm()
+                error_message = '이미 존재하는 해시태그입니다.'
+                return render(request, 'hashtag.html', {'form':form, 'error_message':error_message})
+            else:
+                hashtag.name = form.cleaned_data['name']
+                hashtag.save()
+            return redirect('read')
+    else:
+        form = HashtagForm(instance=hashtag)
+        return render(request, 'hashtag.html', {'form':form})
+
+def hashtag_home(request):
+    hashtags = Hashtag.objects.all()
+    return render(request, 'hashtag_home.html', {'hashtags':hashtags})
+
+def hashtag_detail(request, id, hashtag_id):
+    hashtags = get_object_or_404(Hashtag, id=id)
+    hashtag = Hashtag.objects.filter(name=hashtags)
+    hashtag_posts = Cashbook.objects.filter(hashtags__in = hashtag)
+    return render(request, 'hashtag_detail.html', {'hashtag':hashtag, 'hashtag_posts':hashtag_posts})
+   
+def hashtag_delete(request, id, hashtag_id):
+    cashbook = get_object_or_404(Cashbook, id=id)
+    hashtag = get_object_or_404(Hashtag, id=hashtag_id)
+    cashbook.hashtags.remove(hashtag)
+    if hashtag.cashbook_set.count() == 0:
+        hashtag.delete()
+    return redirect('detail', id=id)
+
+@login_required
+def post_like(request, post_id):
+    post = get_object_or_404(Cashbook, id=post_id)
+    user = request.user
+    profile = User.objects.get(username=user)
+
+    check_like_post = profile.like_posts.filter(id=post_id)
+
+    if check_like_post.exists():
+        profile.like_posts.remove(post)
+        post.like_count -= 1
+        post.save()
+    else:
+        profile.like_posts.add(post)
+        post.like_count += 1
+        post.save()
+
+    return redirect('detail', post_id)

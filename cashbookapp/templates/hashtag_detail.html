@@ -1,0 +1,17 @@
+<h1># {{ hashtag }}</h1>
+<h3>#{{ hashtag }}를 포함한 게시글 : {{ hashtag_posts.count }}개</h3>
+<div class="posts">
+    {% if hashtag_posts %}
+        {% for hashtag_posts in hashtag_posts %}
+            <h3><a href="{% url 'detail' hashtag_posts.id %}">제목 : {{ hashtag_posts.title }}</a></h3>
+            <p>작성일 : {{ hashtag_posts.pub_date }} <br> 작성자 : {{ hashtag_posts.user }}</p>
+            {% if hashtag_posts.image %}
+                <img src="{{ hashtag_posts.image.url }}" width="250" height="250" alt="image">
+            {% endif %}
+            <br>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>관련 게시물이 없습니다.</p>
+    {% endif %}
+</div>

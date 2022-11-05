@@ -21,29 +21,41 @@
             {% if cashbooks.image %}
                 <img src="{{ cashbooks.image.url }}" width="250" height="250" alt="image">
             {% endif %}
+            <!-- 해시태그 -->
+            {% for hashtag in cashbooks.hashtags.all %}
+                <p>해시태그 : <a href="{% url 'hashtag_detail' hashtag.id hashtag.id %}">#{{ hashtag.name }} </a><a href="{% url 'hashtag_delete' cashbooks.id hashtag.id %}">삭제</a></p>
+            {% endfor %}
             <br>
             {% if cashbooks.user == request.user %}
-                <a href="{% url 'edit' cashbooks.id %}">수정하기</a>
-                <a href="{% url 'delete' cashbooks.id %}">삭제하기</a>
+                <button class="page-btn" onclick="location.href=`{% url 'edit' cashbooks.id %}`">가계부 수정하기</button>
+                <button class="page-btn" onclick="location.href=`{% url 'delete' cashbooks.id %}`">가계부 삭제하기</button>
             {% endif %}
+            <!-- 좋아요 -->
+            <p>좋아요 수 : {{cashbooks.like_count}}</p>
+            <a href="{% url 'post_like' cashbooks.id %}">
+                {% if user in cashbooks.like.all %}
+                취소
+                {% else %}
+                좋아요
+                {% endif %}
+            </a>
         </div>
         <div class="container" style="translate: 60%; overflow-y: auto; height: 22rem;">
             <button id="modal-active" class="page-btn">댓글작성</button><br>
             {% for comment in cashbooks.comments.all %}
-                {% if comment.author == request.user %}
-                    <p>작성자 : {{ comment.text }}
-                        <a href = "{% url 'update_comment' cashbooks.id comment.id %}">수정</a>
-                        <a href = "{% url 'delete_comment' cashbooks.id comment.id %}">삭제</a>
-                    </p>
-
+                {% if comment.author == cashbooks.user %}
+                    <p>작성자 : {{ comment.text }}</p>
                 {% else %}
                     <p>{{ comment.author }} : {{ comment.text }}
+                        {% if comment.author == cashbooks.user %}
                         <a href = "{% url 'update_comment' cashbooks.id comment.id %}">수정</a>
                         <a href = "{% url 'delete_comment' cashbooks.id comment.id %}">삭제</a>
+                        {% endif %}
                     </p>
                 {% endif %}
             {% endfor %}
         </div>
+        
         <div id="modal-notice" class="modal-background">
             <div class="modal-editpage">
                 <a class="btn-close" id="modal-close" href="">✖</a>

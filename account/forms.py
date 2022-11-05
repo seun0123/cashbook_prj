@@ -8,9 +8,9 @@ from django.contrib.auth import get_user_model
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = User()
-        fields = ('name','age', 'phone', 'address','image')
+        fields = fields = ['username','password1','password2','age', 'phone', 'address','image']
 
 class CustomUserCreationForm(forms.UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ('name','age', 'phone', 'address','image')
+        fields = fields = ['username','password1','password2','age', 'phone', 'address','image']

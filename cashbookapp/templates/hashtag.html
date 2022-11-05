@@ -1,0 +1,12 @@
+<h3>해시태그 만들기</h3>
+<hr>
+{{error_message}}
+
+<div class="container">
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+    </table>
+    <input type="submit" value="만들기">
+</form>

@@ -23,11 +23,16 @@ def signup(request):
         form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
-            image = request.user.image
+            form.username = request.POST.get('username')
+            form.password = request.POST.get('password')
+            form.age = request.POST.get('age')
+            form.phone = request.POST.get('phone')
+            form.address = request.POST.get('address')
+            form.image = request.POST.get('image')
             auth.login(request, user)
             return redirect(login)
         else:
-            return render(request, 'mypage.html', {'form':form,'image':image})
+            return render(request, 'login.html', {'form':form})
     else:
         form = CustomUserCreationForm()
         return render(request, 'signup.html', {'form':form})
@@ -37,10 +42,16 @@ def login(request):
         form = AuthenticationForm(data= request.POST)
         if form.is_valid():
             user = form.get_user()
+            form.username = request.POST.get('username')
+            form.password = request.POST.get('password')
+            form.age = request.POST.get('age')
+            form.phone = request.POST.get('phone')
+            form.address = request.POST.get('address')
+            form.image = request.POST.get('image')
             auth.login(request, user)
             return redirect('mypage',user.id)
         else:
-            return render(request, 'mypage.html', {'form':form})
+            return render(request, 'login.html', {'form':form})
     else:
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form})
@@ -92,7 +103,7 @@ def user_update_password(request):
     if request.method == "POST":
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
-            user = form.save() # 로그아웃됨. session정보랑 로그인정보까지 날아감.
+            user = form.save()
             update_session_auth_hash(request, user)
             return redirect('login')
     else:
