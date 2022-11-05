@@ -33,10 +33,10 @@
             <!-- 좋아요 -->
             <p>좋아요 수 : {{cashbooks.like_count}}</p>
             <a href="{% url 'post_like' cashbooks.id %}">
-                {% if user in cashbooks.like.all %}
-                취소
+                {% if user in cashbooks.like_count %}
+                    좋아요 취소
                 {% else %}
-                좋아요
+                    좋아요
                 {% endif %}
             </a>
         </div>
