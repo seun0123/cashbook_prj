@@ -45,9 +45,13 @@
             {% for comment in cashbooks.comments.all %}
                 {% if comment.author == cashbooks.user %}
                     <p>작성자 : {{ comment.text }}</p>
+                        {% if comment.author == request.user %}
+                            <a href = "{% url 'update_comment' cashbooks.id comment.id %}">수정</a>
+                            <a href = "{% url 'delete_comment' cashbooks.id comment.id %}">삭제</a>
+                        {% endif %}
                 {% else %}
                     <p>{{ comment.author }} : {{ comment.text }}
-                        {% if comment.author == cashbooks.user %}
+                        {% if comment.author == request.user %}
                         <a href = "{% url 'update_comment' cashbooks.id comment.id %}">수정</a>
                         <a href = "{% url 'delete_comment' cashbooks.id comment.id %}">삭제</a>
                         {% endif %}

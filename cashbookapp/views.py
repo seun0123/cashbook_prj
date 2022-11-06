@@ -132,13 +132,14 @@ def hashtag_home(request):
 
 def hashtag_detail(request, id, hashtag_id):
     hashtags = get_object_or_404(Hashtag, id=id)
+    hashtag_name = Hashtag.objects.get(name=hashtags)
     hashtag = Hashtag.objects.filter(name=hashtags)
     hashtag_posts = Cashbook.objects.filter(hashtags__in = hashtag)
-    return render(request, 'hashtag_detail.html', {'hashtag':hashtag, 'hashtag_posts':hashtag_posts})
+    return render(request, 'hashtag_detail.html', {'hashtag':hashtag, 'hashtag_name':hashtag_name,'hashtag_posts':hashtag_posts})
    
 def hashtag_delete(request, id, hashtag_id):
     cashbook = get_object_or_404(Cashbook, id=id)
-    hashtag = get_object_or_404(Hashtag, id=hashtag_id)
+    hashtag = get_object_or_404(Hashtag, name=hashtag_id)
     cashbook.hashtags.remove(hashtag)
     if hashtag.cashbook_set.count() == 0:
         hashtag.delete()
