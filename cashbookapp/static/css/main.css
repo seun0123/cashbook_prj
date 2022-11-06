@@ -98,6 +98,12 @@ a:hover {
     animation: changeColors 2s linear 0s infinite alternate;
 }
 
+.title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .container:not(.content) {
     display: flex;
     flex-flow: row nowrap;
@@ -105,9 +111,10 @@ a:hover {
 }
 
 .content {
-    position: relative;
+    position: absolute;
+    right: 6%;
     width: 100%;
-    height: 60rem !important;
+    height: 30rem !important;
     overflow: hidden;
 }
 
@@ -220,4 +227,191 @@ a:hover {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 20%);
+}
+
+@font-face {
+    font-family: '양진체';
+    src: url('https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff%27') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: '양진체';
+}
+
+.clock{
+    width: 18rem;
+    height: 18rem;
+    border: 0.5rem solid black;
+    border-radius: 50%;
+    margin: 1rem auto;
+    position: relative;
+    top: 50%;
+    background-color:black;
+}
+
+.inner-clock{
+    border: 0.1rem dotted rgb(255, 255, 255);
+    border-radius: 50%;
+    width: 16rem;
+    height: 16rem;
+    margin: 0.5rem auto;
+}
+
+.Rome{
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+    font-size: 1.5rem;
+    color: white;
+}
+
+#Rome12{
+    right: 0;
+    left: 0;
+    top: 0;
+    transform: translateY(-10%);
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+#Rome6{
+    right: 0;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+#Rome3{
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    right: 6px;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+#Rome9 {
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    left: 6px;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+#Rome1{
+    top: calc(140px - 120px);
+    right: calc(140px - 70px);
+}
+
+#Rome2{
+    top: calc(140px - 75px);
+    right: calc(140px - 115px);
+}
+
+#Rome4{
+    bottom: calc(140px - 80px);
+    right: calc(140px - 115px);
+}
+
+#Rome5{
+    bottom: calc(140px - 120px);
+    right: calc(140px - 70px);
+}
+
+#Rome11{
+    top: calc(140px - 120px);
+    left: calc(140px - 70px);
+}
+
+#Rome10{
+    top: calc(140px - 80px);
+    left: calc(140px - 115px);
+}
+
+#Rome8{
+    bottom: calc(140px - 80px);
+    left: calc(140px - 115px);
+}
+
+#Rome7{
+    bottom: calc(140px - 120px);
+    left: calc(140px - 70px);
+}
+
+#clocktext{
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-top: 2.5rem;
+    color: black;
+}
+
+#center{
+    position: absolute;
+    border: none;
+    width: 1rem;
+    height: 1rem;
+    top: 2%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: black;
+    margin: auto;
+    border-radius: 50%;
+    z-index: 999;
+}
+
+#second{
+    position: absolute;
+    height: 6.5rem;
+    width: 0.15rem;
+    background-color: rgb(255, 208, 150);
+    top: 17%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 9rem;
+    transform: rotate(0deg);
+    transform-origin: center 100%;
+}
+
+#minute{
+    position: absolute;
+    height: 6rem;
+    width: 0.4rem;
+    background-color: rgb(84, 104, 104);
+    top: 19%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 9rem;
+    transform: rotate(0deg);
+    transform-origin: center 100%;
+    border-radius: 1.2rem;
+}
+
+#hour{
+    position: absolute;
+    height: 4.5rem;
+    width: 0.4rem;
+    background-color: rgb(110, 223, 76);
+    top: 28%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 9rem;
+    transform: rotate(0deg);
+    transform-origin: center 100%;
+    border-radius: 1.2rem;
 }

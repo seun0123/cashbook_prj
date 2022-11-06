@@ -12,7 +12,7 @@
 <body>
     <div class="col-lg-10">
         <h1>Detail</h1><hr><br>
-        <div class="container" style="translate: -60%; overflow-y: auto; height: 22rem;">
+        <div class="container" style="translate: -60%; overflow-y: auto; height: 35rem;">
             <button class="page-btn" onclick="location.href=`{% url 'read' %}`">가계부 리스트</button><br>
             <h3>제목 : {{cashbooks.title}}</h3>
             <p>작성일 : {{cashbooks.pub_date}}</p>
@@ -32,15 +32,10 @@
             {% endif %}
             <!-- 좋아요 -->
             <p>좋아요 수 : {{cashbooks.like_count}}</p>
-            <a href="{% url 'post_like' cashbooks.id %}">
-                {% if user in cashbooks.like_count %}
-                    좋아요 취소
-                {% else %}
-                    좋아요
-                {% endif %}
-            </a>
+            <div class="like" onclick="location.href=`{% url 'post_like' cashbooks.id %}`"></div>
+            <div class="like-heart"></div>
         </div>
-        <div class="container" style="translate: 60%; overflow-y: auto; height: 22rem;">
+        <div class="container" style="translate: 60%; overflow-y: auto; height: 35rem;">
             <button id="modal-active" class="page-btn">댓글작성</button><br>
             {% for comment in cashbooks.comments.all %}
                 {% if comment.author == cashbooks.user %}
