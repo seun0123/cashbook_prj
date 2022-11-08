@@ -15,12 +15,25 @@
     {% if msg %} 
         <p style="color: red;">{{msg}}</p>
     {% endif %}
+
     <div class="container" style="overflow-y: auto; height: 38rem; top: 55%;">
-        <form method="POST">
+        <form method="GET" action="{% url 'search' %}">
+            {% csrf_token %}
+            <input name="search">
+            <button type="submit">검색</button>
+        </form>
+
+        <form method="GET">
+            <select name="sort" id="sort">
+                <option value="date" id="date">최신순</option>
+                <option value="like_count" id="like_count">좋아요순</option>
+            </select>
+            <button type="submit">정렬</button>
+
             {% for cashbooks in cashbooks.all %}
             <h4>제목 :<a href="{% url 'detail' cashbooks.id %}">{{cashbooks.title}}</a></h4>
             <p>작성일 : {{cashbooks.pub_date}}</p>
-            <p>기분 : {{cashbooks.feeling}}</p><br>
+            <p>작성자 : {{cashbooks.user}}</p>
             {% endfor %}
         </form>
     </div>

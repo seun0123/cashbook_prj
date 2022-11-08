@@ -16,6 +16,7 @@
             <button class="page-btn" onclick="location.href=`{% url 'read' %}`">가계부 리스트</button><br>
             <h3>제목 : {{cashbooks.title}}</h3>
             <p>작성일 : {{cashbooks.pub_date}}</p>
+            <p>작성자 : {{cashbooks.user}}</p>
             <p>기분 : {{cashbooks.feeling}}</p>
             <p>지출내역 : {{cashbooks.content}}</p>
             {% if cashbooks.image %}
@@ -32,6 +33,11 @@
             {% endif %}
             <!-- 좋아요 -->
             <p>좋아요 수 : {{cashbooks.like_count}}</p>
+            {% if cashbooks in user.like_posts.all %}
+                취소
+            {% else %}
+                좋아요
+            {% endif %}
             <div class="like" onclick="location.href=`{% url 'post_like' cashbooks.id %}`"></div>
             <div class="like-heart"></div>
         </div>

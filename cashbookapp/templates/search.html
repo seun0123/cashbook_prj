@@ -1,0 +1,9 @@
+<h1>{{ search }} 검색결과</h1>
+{% if not cashbooks %}
+    <h2>검색 결과 {{ search }}는 없습니다.</h2>
+{% else %}
+    {% for cashbook in cashbooks %}
+        <h3>제목 : <a href="{% url 'detail' cashbook.id %}">{{ cashbook.title }}</a></h3>
+        <p>작성일 : {{ cashbook.pub_date }}</p>
+    {% endfor %}
+{% endif %}

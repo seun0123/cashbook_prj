@@ -15,6 +15,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseForbidden
 from django.contrib.auth import get_user_model
 from django.http import request
+from django.db.models import Q
 
 # Create your views here.
 def main(request):
@@ -47,8 +48,15 @@ def write(request, cashbook = None):
         return render(request, 'write.html', {'form': form})
 
 def read(request):
-    cashbooks = Cashbook.objects
-    return render(request, 'read.html', {'cashbooks':cashbooks})
+    # cashbooks = Cashbook.objects
+    sort = request.GET.get('sort', '')
+    if sort == 'date':
+        cashbooks = Cashbook.objects.all().order_by('-pub_date')
+    elif sort == 'like_count':
+        cashbooks = Cashbook.objects.all().order_by('-like_count')
+    else:
+        cashbooks = Cashbook.objects
+    return render(request, 'read.html', {'cashbooks':cashbooks, 'sort':sort})
 
 def detail(request, id):
     cashbooks = get_object_or_404(Cashbook, id=id)
@@ -163,3 +171,15 @@ def post_like(request, post_id):
         post.save()
 
     return redirect('detail', post_id)
+
+def search(request):
+    cashbooks = Cashbook.objects.all()
+    search = request.GET.get('search', '')
+    if search:
+        cashbooks = cashbooks.filter(
+            Q(title__icontains = search) | # 제목
+            Q(content__icontains = search) # 내용
+        ).distinct()
+        return render(request, 'search.html', {'cashbooks':cashbooks})
+    else:
+        return render(request, 'search.html')
