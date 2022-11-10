@@ -117,7 +117,7 @@ input[type="checkbox"] {
     display: none;
 }
 
-.check {
+.toggle {
     position: relative;
     display: inline-block;
     width: 40px;
@@ -131,11 +131,11 @@ input[type="checkbox"] {
     z-index: 1;
 }
 
-input[type="checkbox"]:checked ~ .check {
+input[type="checkbox"]:checked ~ .toggle {
     background: #fff;
 }
 
-.check::before {
+.toggle::before {
     content: "";
     position: absolute;
     top: 2px;
@@ -147,9 +147,13 @@ input[type="checkbox"]:checked ~ .check {
     transition: 0.1s;
 }
 
-input[type="checkbox"]:checked ~ .check::before {
+input[type="checkbox"]:checked ~ .toggle::before {
     transform: translateX(20px);
     background-image: var(--colorful);
+}
+
+.theme-text {
+    font-family: '양진체';
 }
 
 .container:not(.content) {

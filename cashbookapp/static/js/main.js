@@ -8,6 +8,19 @@ var slideWrapper = document.getElementsByClassName('content'),
     navNext = document.getElementById('next'),
     checkValue = 0;
 
+document.querySelector('.toggle').addEventListener('click', () => {
+    if (checkValue == 0) {
+        document.querySelector('.theme').checked = true;
+        document.querySelector('.body').style.backgroundImage = 'var(--colorful)';
+        checkValue = checkValue + 1
+    }
+    else if (checkValue == 1) {
+        document.querySelector('.theme').checked = false;
+        document.querySelector('.body').style.backgroundImage = 'var(--default)';
+        checkValue = checkValue - 1
+    }
+})
+
 function calculateTallestSlide() {
     for (var i = 0; i < slideCount; i++) {
         if (slides[i].offsetHeight > topHeight) {
@@ -89,16 +102,3 @@ function clockRun() {
 
     setTimeout(clockRun, 1000);
 }
-
-document.querySelector('.check').addEventListener('click', () => {
-    if (checkValue == 0) {
-        document.querySelector('.checkbox').checked = true;
-        document.querySelector('.body').style.backgroundImage = 'var(--colorful)';
-        checkValue = checkValue + 1
-    }
-    else if (checkValue == 1) {
-        document.querySelector('.checkbox').checked = false;
-        document.querySelector('.body').style.backgroundImage = 'var(--default)';
-        checkValue = checkValue - 1
-    }
-})
