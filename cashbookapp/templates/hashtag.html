@@ -1,12 +1,22 @@
-<h3>해시태그 만들기</h3>
-<hr>
-{{error_message}}
-
-<div class="container">
-<form method="POST">
-    {% csrf_token %}
-    <table>
-        {{form.as_table}}
-    </table>
-    <input type="submit" value="만들기">
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <title>해시태그 만들기</title>
+</head>
+<body>
+    <div class="container" style="width: 20rem; height: 10rem;">
+        <h2>해시태그 만들기</h2>
+        {{error_message}}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="name" maxlength="50" required="" id="id_name">
+            <button type="submit">만들기</button>
+        </form>
+    </div>
+</body>
+</html>
