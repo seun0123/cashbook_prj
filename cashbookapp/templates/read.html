@@ -1,35 +1,53 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <script src="https://js.tosspayments.com/v1"></script>
     <title>나만의 가계부 리스트</title>
 </head>
+
 <body>
     <h1>Read</h1>
     <button class="page-btn" onclick="location.href=`{% url 'main' %}`">메인페이지</button>
     <button class="page-btn" onclick="location.href=`{% url 'write' %}`">글 작성</button>
-    {% if msg %} 
-        <p style="color: red;">{{msg}}</p>
+    {% if msg %}
+    <p style="color: red;">{{msg}}</p>
     {% endif %}
 
     <div class="container" style="overflow-y: auto; height: 38rem; top: 55%;">
+        <h3>
+            해시태그검색
+        </h3>
         <form method="GET" action="{% url 'search' %}">
             {% csrf_token %}
             <input name="search">
             <button type="submit">검색</button>
         </form>
-
+        <hr>
+        <h3>
+            결제(일반)
+        </h3>
+        <section>
+            <div>
+                <button onclick="location.href='/window';">결제창</button>
+            </div>
+        </section>
+        <hr>
         <form method="GET">
+            <h3>
+                게시글 정렬
+            </h3>
             <select name="sort" id="sort">
                 <option value="date" id="date">최신순</option>
                 <option value="like_count" id="like_count">좋아요순</option>
             </select>
             <button type="submit">정렬</button>
-
+            <hr>
             {% for cashbooks in cashbooks.all %}
             <h4>제목 :<a href="{% url 'detail' cashbooks.id %}">{{cashbooks.title}}</a></h4>
             <p>작성일 : {{cashbooks.pub_date}}</p>
@@ -38,4 +56,5 @@
         </form>
     </div>
 </body>
+
 </html>

@@ -18,9 +18,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from account import views as account_views
+import payment.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('cashbookapp.urls')),
     path('account/', include('account.urls')),
+    path('window', payment.views.window, name='window'),
+    path('success', payment.views.success), 
+    path('fail', payment.views.fail),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
