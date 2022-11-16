@@ -1,9 +1,25 @@
-<h1>{{ search }} 검색결과</h1>
-{% if not cashbooks %}
-    <h2>검색 결과 {{ search }}는 없습니다.</h2>
-{% else %}
-    {% for cashbook in cashbooks %}
-        <h3>제목 : <a href="{% url 'detail' cashbook.id %}">{{ cashbook.title }}</a></h3>
-        <p>작성일 : {{ cashbook.pub_date }}</p>
-    {% endfor %}
-{% endif %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <title>검색</title>
+</head>
+<body>
+    <h1>{{ search }} 검색결과</h1>
+    <button class="page-btn" onclick="location.href=`{% url 'read' %}`">가계부 리스트</button><br>
+    <div class="container" style="overflow-y: auto; height: 36rem;">
+        {% if not cashbooks %}
+            <h2>검색 결과 {{ search }}는 없습니다.</h2>
+        {% else %}
+            {% for cashbook in cashbooks %}
+                <h3>제목 : <a href="{% url 'detail' cashbook.id %}">{{ cashbook.title }}</a></h3>
+                <p>작성일 : {{ cashbook.pub_date }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

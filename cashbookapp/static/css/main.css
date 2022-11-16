@@ -29,6 +29,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: '양진체';
+    src: url('https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @keyframes changeColors {
     from { background: rgb(187, 236, 255); } to { background: rgb(255, 186, 232); }
 } 
@@ -59,7 +66,7 @@ button {
   border: 2px solid #fff;
   border-radius: 5px;
   color: #fff;
-  font-size: 0.5em;
+  font-size: 0.4em;
   font-weight: bold;
   margin: 0.1em auto;
   padding: 0.1em 0.1em;
@@ -96,12 +103,57 @@ a:hover {
     text-align: center;
     line-height: 7.5rem;
     animation: changeColors 2s linear 0s infinite alternate;
+    z-index: 999;
 }
 
 .title {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+input[type="checkbox"] {
+    visibility: hidden;
+    display: none;
+}
+
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    top: 0.3%;
+    background-image: var(--colorful);
+    cursor: pointer;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: ease-in 0.1s;
+    z-index: 1;
+}
+
+input[type="checkbox"]:checked ~ .toggle {
+    background: #fff;
+}
+
+.toggle::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background: #fff;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    transition: 0.1s;
+}
+
+input[type="checkbox"]:checked ~ .toggle::before {
+    transform: translateX(20px);
+    background-image: var(--colorful);
+}
+
+.theme-text {
+    font-family: '양진체';
 }
 
 .container:not(.content) {
@@ -191,63 +243,16 @@ a:hover {
     transform: translateY(-125%);
 }
 
-.sidebar {
-    width: 12%;
-    min-width: 12%;
-    height: 16rem;
-    position: sticky;
-    display: block;
-    top: 0;
-    background: #c5c5c5;
-    text-align: center;
-    padding-top: 3rem;
-}
-
-.sidebar a {
-    line-height: 3.5rem;
-    vertical-align: middle;
-}
-
-.logo {
-    width: 100%;
-    background: #effcf2;
-}
-
-.footer {
-    margin-top: -0.5rem;
-    background: #333;
-    height: 15rem;
-    font-size: 1rem;
-    padding-top: 1rem;
-    color: white;
-    text-align: center;
-}
-
-.footer p {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 20%);
-}
-
-@font-face {
-    font-family: '양진체';
-    src: url('https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff%27') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-body{
-    font-family: '양진체';
-}
-
 .clock{
     width: 18rem;
     height: 18rem;
     border: 0.5rem solid black;
     border-radius: 50%;
     margin: 1rem auto;
-    position: relative;
-    top: 50%;
+    position: absolute;
+    top: 90%;
+    left: 44%;
+    transform: translate(-50%, -50%);
     background-color:black;
 }
 
@@ -349,12 +354,13 @@ body{
 }
 
 #clocktext{
+    font-family: '양진체';
     position: absolute;
     left: 0;
     right: 0;
     text-align: center;
     margin-top: 2.5rem;
-    color: black;
+    color: whitesmoke;
 }
 
 #center{
@@ -366,7 +372,7 @@ body{
     bottom: 0;
     left: 0;
     right: 0;
-    background: black;
+    background: white;
     margin: auto;
     border-radius: 50%;
     z-index: 999;
@@ -414,4 +420,43 @@ body{
     transform: rotate(0deg);
     transform-origin: center 100%;
     border-radius: 1.2rem;
+}
+
+.sidebar {
+    width: 12%;
+    min-width: 12%;
+    height: 16rem;
+    top: 0;
+    left: 88%;
+    position: sticky;
+    display: block;
+    background: #c5c5c5;
+    text-align: center;
+    padding-top: 3rem;
+}
+
+.sidebar a {
+    line-height: 3.5rem;
+    vertical-align: middle;
+}
+
+.logo {
+    width: 100%;
+    background: #effcf2;
+}
+
+.footer {
+    margin-top: -0.5rem;
+    background: #333;
+    height: 15rem;
+    font-size: 1rem;
+    padding-top: 1rem;
+    color: white;
+    text-align: center;
+}
+
+.footer p {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 20%);
 }
