@@ -11,7 +11,10 @@
     <div class="header" id="header">
         <span class="title">메인페이지</span>
         <button onclick="location.href='account/login'">로그인</button>
-        <button onclick="location.href='account/signup'">회원가입</button>
+        <button class="signup">회원가입</button>
+        <div id="loading-notice" class="loading-background">
+            <img class="loading-gif" src="{% static 'img/loading_hos.gif' %}">
+        </div>  
         <button onclick="location.href='hashtag'">해시태그</button>
     </div>
     <div class="container" id="container">

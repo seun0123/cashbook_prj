@@ -106,6 +106,30 @@ a:hover {
     z-index: 999;
 }
 
+.loading-background {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: none;
+    z-index: 999999;
+}
+
+.loading-gif {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30rem;
+    height: 30rem;
+    border-radius: 0.5rem;
+    padding: 0;
+}
+
+.loading-background.active { display: block; }
+
 .title {
     position: absolute;
     left: 50%;
@@ -194,7 +218,7 @@ input[type="checkbox"]:checked ~ .toggle::before {
     position: absolute;
     left: 50%;
     transform: translateY(280%);
-    z-index: 999999;
+    z-index: 999;
     display: inline-block;
     height: 5em;
     width: 5em;

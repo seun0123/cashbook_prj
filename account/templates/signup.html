@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/account.css' %}">
 </head>
 <body>
-<button onclick="location.href=`{% url 'main' %}`">메인페이지</a></button>
+<button type="button" onclick="location.href=`{% url 'main' %}`">메인페이지</button>
 <div class="account-box">
 <h1>회원가입</h1>
     <form method="POST" action="{% url 'signup' %}">
@@ -57,7 +57,7 @@
         
         <p>
             <label for="id_address">주소:</label>
-            <input type="text" name="address" maxlength="100" required="" id="id_address">
+            <input type="text" name="address" maxlength="100" id="id_address">
             <span class="misaddress-message hide">5자리의 숫자를 입력해야 합니다</span>
             <div class="condition">우편번호를 입력해주시기 바랍니다.</div>
         </p>
@@ -67,7 +67,7 @@
             <input type="file" name="image" accept="image/*" id="id_image">
         </p>
 
-        <button type="submit">완료</button> -->
+        <button id="joinbutton" type="submit" value="submit">완료</button> -->
     </form>
 </div>
 </body>

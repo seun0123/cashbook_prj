@@ -1,12 +1,23 @@
-var slideWrapper = document.getElementsByClassName('content'),
+var loading = document.querySelector('#loading-notice'),
+    checkValue = 0,
+    slideWrapper = document.getElementsByClassName('content'),
     slideContainer = document.getElementsByClassName('slider-container'),
     slides = document.getElementsByClassName('slide'),
     slideCount = slides.length,
     currentIndex = 0,
     topHeight = 0,
     navPrev = document.getElementById('prev'),
-    navNext = document.getElementById('next'),
-    checkValue = 0;
+    navNext = document.getElementById('next');
+
+document.querySelector('.signup').addEventListener('click', () => {
+    loading.classList.add('active');
+    document.querySelector('body').style.overflow = 'hidden';
+
+    setTimeout(function() {location.href = 'account/signup';
+    loading.classList.remove('active');
+    document.querySelector('body').style.overflow = 'visible';
+    }, 3000);
+})
 
 document.querySelector('.toggle').addEventListener('click', () => {
     if (checkValue == 0) {
